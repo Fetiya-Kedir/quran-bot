@@ -5,7 +5,6 @@ from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
 from dotenv import load_dotenv
 
-
 # Set up logging for debugging and monitoring
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -73,6 +72,7 @@ async def start(update: Update, context: CallbackContext) -> None:
 # FAQ handler
 async def faq_handler(update: Update, context: CallbackContext) -> None:
     question = update.message.text
+    logger.info(f"Received FAQ request: {question} from {update.effective_user.username}")
     response = FAQ_RESPONSES.get(question, "Sorry, I don't have an answer for that.")
     await update.message.reply_text(response)
 
@@ -95,6 +95,7 @@ async def handle_message(update: Update, context: CallbackContext) -> None:
 # Error handler
 async def error(update: Update, context: CallbackContext) -> None:
     logger.error(f"Update {update} caused error {context.error}. User: {update.effective_user.username}")
+    await update.message.reply_text("An error occurred. Please try again later.")
 
 # Main function
 def main() -> None:
