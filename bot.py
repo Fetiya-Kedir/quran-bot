@@ -56,7 +56,7 @@ def is_admin(username):
 async def start(update: Update, context: CallbackContext) -> None:
     global last_hadith_index
     user_name = update.effective_user.first_name
-    greeting = f"السلام عليكم ورحمة الله وبركاته\n{user_name}!"
+    greeting = f"االسَّلامُ عَلَيْكُم ورَحْمَةُ اللهِ وَبَرَكاتُهُه\n{user_name}!"
 
     last_hadith_index = (last_hadith_index + 1) % len(HADITHS)
     hadith = HADITHS[last_hadith_index]
